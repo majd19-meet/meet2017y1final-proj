@@ -1,6 +1,24 @@
 import turtle
 import random
 
+print('choose an instructor')
+print('adam,dou_dou,keyvon,jan')
+choice=input()
+choice.lower()
+if choice=='adam':
+    choice.shape('adam.gif')
+elif choice=='dou_dou':
+    choice.shape('dou_dou.gif')
+elif choice=='kayvon':
+    choice.shape('kayvon.gif')
+elif choice=='jan':
+    choice.shape('jan.gif')
+    
+
+
+
+
+
 turtle.tracer(1,0)
 
 SIZE_X=1250
