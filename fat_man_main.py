@@ -126,3 +126,7 @@ def make_food():
     food_stamps.append(ran_food_stamp)
 
 
+def move_fat_man():
+    global score
+
+    my_pos=fat_man.pos
