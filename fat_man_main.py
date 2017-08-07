@@ -129,4 +129,26 @@ def make_food():
 def move_fat_man():
     global score
 
-    my_pos=fat_man.pos
+    my_pos=fat_man.pos()
+    x_pos=my_pos[0]
+    y_pos=my_pos[1]
+    global direction
+
+    if direction==RIGHT:
+        fat_man.goto(x_pos+SQUARE_SIZE, y_pos)
+        #print("you moved right")
+    elif direction==LEFT:
+        fat_man.goto(x_pos-SQUARE_SIZE, y_pos)
+        #print("you moved left")
+        
+    if direction==UP:
+        fat_man.goto(x_pos,y_pos+SQUARE_SIZE)
+        #print("you moved UP")
+    if direction==DOWN:
+        fat_man.goto(x_pos,y_pos-SQUARE_SIZE)
+       # print("you moved down")
+
+    my_pos=fat_man.pos()
+    pos_list.append(my_pos)
+    new_stamp=fat_man.stamp()
+    stamp_list.append(new_stamp)
