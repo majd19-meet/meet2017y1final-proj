@@ -72,7 +72,6 @@ DOWN_ARROW="Down"
 RIGHT_ARROW="Right"
 TIME_STEP=100
 SPACEBAR='space'
-score=0
 UP=0
 DOWN=1
 LEFT=2
