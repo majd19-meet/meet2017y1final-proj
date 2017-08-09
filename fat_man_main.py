@@ -15,7 +15,13 @@ turtle.register_shape('kayvon.gif')
 turtle.register_shape('jan.gif')
 turtle.register_shape('alex.gif')
 
-
+turtle.register_shape('grapes.gif')
+turtle.register_shape('orange.gif')
+turtle.register_shape('watermelon.gif')
+turtle.register_shape('banana.gif')
+turtle.register_shape('apple.gif')
+turtle.register_shape('cherries.gif')
+food_types = ['grapes.gif','orange.gif','watermelon.gif','banana.gif','apple.gif','cherries.gif']
 
 if chose=='adam':
     fatman.shape('adam.gif')
@@ -50,7 +56,7 @@ START_LENGTH=1
 score_list=[]
 pos_list=[]
 stamp_list=[]
-
+score = 0
 
 turtle.hideturtle()
 
@@ -72,6 +78,7 @@ DOWN_ARROW="Down"
 RIGHT_ARROW="Right"
 TIME_STEP=100
 SPACEBAR='space'
+global score
 UP=0
 DOWN=1
 LEFT=2
@@ -84,13 +91,16 @@ box=turtle.clone()
 box.shape('square')
 box.hideturtle()
 box.penup()
+scoreboard = turtle.clone()
+scoreboard.goto(-SIZE_X/2 +40 ,SIZE_Y/2 - 40)
+scoreboard.penup()
 
-
+scoreboard.write('score = 0',font=("Arial", 14, "bold"))
 #wall maker
 def wall_maker(left_corner,hight,width):
     box.goto(left_corner[0],left_corner[1]-SQUARE_SIZE)
     for i in range(hight):
-        box.goto(box.pos()[0],box.pos()[1]+SQUARE_SIZE)
+        box.goto(box.pos()[0], box.pos()[1]+SQUARE_SIZE)
         box.stamp()
         wall_pos.append(box.pos())
     for i in range(width-1):
@@ -107,61 +117,36 @@ def wall_maker(left_corner,hight,width):
         wall_pos.append(box.pos())
     
 
+def draw_box(left_corner, height, width):
+    start_x, start_y = left_corner
+    box.goto(left_corner)
+    for h in range(height):
+        # draw horizontal line
+        for w in range(width):
+            old_x, old_y = box.pos()
+            box.goto(old_x + SQUARE_SIZE, old_y)
+            box.stamp()
+            wall_pos.append(box.pos())
+        box.goto(start_x, start_y - ((h+1) * SQUARE_SIZE))
         
 left_corner=(-600,-340)
 wall_maker(left_corner,35,61)
-#maze
-
-left_corner=(-460,-260)
-
-width=12
-hight=13
-for i in range (5):
-    x=left_corner[0]
-    y=left_corner[1]
-    left_corner=(x+SQUARE_SIZE,y+SQUARE_SIZE)
-    width += -2
-    hight += -2
-    wall_maker(left_corner,hight,width)
-##    
-##    
-##
-left_corner=(-460,40)
-width=12
-hight=13
-for i in range (5):
-    x=left_corner[0]
-    y=left_corner[1]
-    left_corner=(x+SQUARE_SIZE,y+SQUARE_SIZE)
-    width += -2
-    hight += -2
-    wall_maker(left_corner,hight,width)
-##
-left_corner=(260,-260)
-width=12
-hight=13
-for i in range (5):
-    x=left_corner[0]
-    y=left_corner[1]
-    left_corner=(x+SQUARE_SIZE,y+SQUARE_SIZE)
-    width += -2
-    hight += -2
-    wall_maker(left_corner,hight,width)
-##
-##
-left_corner=(260,40)
-width=12
-hight=13
-for i in range (5):
-    x=left_corner[0]
-    y=left_corner[1]
-    left_corner=(x+SQUARE_SIZE,y+SQUARE_SIZE)
-    width += -2
-    hight += -2
-    wall_maker(left_corner,hight,width)
+###maze
 ##
 
+width=12
+hight=12
+draw_box((-460,260), hight, width)
+draw_box((-460, -40), hight, width)
+draw_box((220, 260), hight, width)
+draw_box((220, -40), hight, width)
 
+width=6
+hight=6
+
+draw_box((60, 20), hight, width)
+draw_box((-160, -80), hight, width)
+draw_box((-160, 180), hight, width)
 UP_EDGE=SIZE_Y/2
 DOWN_EDGE=-SIZE_Y/2
 RIGHT_EDGE=SIZE_X/2
@@ -216,7 +201,7 @@ turtle.onkeypress(right,RIGHT_ARROW)
 turtle.listen()
 
 food=turtle.clone()
-food.shape("square")
+food.shape("orange.gif")
 
 food_pos=[(100,100)]
 food_stamps=[]
@@ -233,6 +218,8 @@ def make_food():
     min_y=-int(SIZE_Y/2/SQUARE_SIZE)+2
     max_y=int(SIZE_Y/2/SQUARE_SIZE)-2
     temp_pos = wall_pos[10]
+    choice = random.choice(food_types)
+    food.shape(choice)
     while temp_pos in wall_pos:
         food_x=random.randint(min_x,max_x)*SQUARE_SIZE
         food_y=random.randint(min_y,max_y)*SQUARE_SIZE
@@ -290,6 +277,10 @@ def move_fatman():
         food.clearstamp(food_stamps[food_ind])
         food_pos.pop(food_ind)
         food_stamps.pop(food_ind)
+        score = score+1
+        score_list.append(score)
+        scoreboard.clear()
+        scoreboard.write('score='+str(score),font=("Arial", 14, "bold"))
         print('you have eaten the food')
         make_food()
 
