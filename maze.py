@@ -1,6 +1,7 @@
 import turtle
-SIZE_X=800
-SIZE_Y=500
+SIZE_X=1250
+SIZE_Y=700
+turtle.tracer(1,0)
 turtle.setup(SIZE_X,SIZE_Y)
 turtle.penup()
 stamp_list=[]
@@ -40,7 +41,75 @@ def wall_maker (left_corner,hight,width):
         box.goto(box.pos()[0]-SQUARE_SIZE,box.pos()[1])
         box.stamp()
         wall_pos.append(box.pos())
-left_corner=(-385,-240)
-wall_maker(left_corner,25,35)
-left_corner=(-50,-50)
-wall_maker(left_corner,15,5)
+    
+
+        
+left_corner=(-608,-337)
+wall_maker(left_corner,35,62)
+#maze
+
+left_corner=(-460,-260)
+
+width=12
+hight=13
+for i in range (5):
+    x=left_corner[0]
+    y=left_corner[1]
+    left_corner=(x+20,y+20)
+    width += -2
+    hight += -2
+    wall_maker(left_corner,hight,width)
+    
+    
+
+left_corner=(-460,45)
+width=12
+hight=13
+for i in range (5):
+    x=left_corner[0]
+    y=left_corner[1]
+    left_corner=(x+20,y+20)
+    width += -2
+    hight += -2
+    wall_maker(left_corner,hight,width)
+
+left_corner=(260,-260)
+width=12
+hight=13
+for i in range (5):
+    x=left_corner[0]
+    y=left_corner[1]
+    left_corner=(x+20,y+20)
+    width += -2
+    hight += -2
+    wall_maker(left_corner,hight,width)
+
+
+left_corner=(260,45)
+width=12
+hight=13
+for i in range (5):
+    x=left_corner[0]
+    y=left_corner[1]
+    left_corner=(x+20,y+20)
+    width += -2
+    hight += -2
+    wall_maker(left_corner,hight,width)
+
+
+
+
+
+
+
+#left_corner=(260,-110)
+#width=12
+#hight=9
+#for i in range (5):
+    #3x=left_corner[0]
+    #y=left_corner[1#
+    #left_corner=(x+20,y+20)
+    #width += -2
+    #hight += -2
+    #wall_maker(left_corner,hight,width)
+
