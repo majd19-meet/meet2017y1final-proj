@@ -241,20 +241,23 @@ for i in food_pos:
 
 
 def make_food():
-    min_x=-int(SIZE_X/2/SQUARE_SIZE)+1
-    max_x=int(SIZE_X/2/SQUARE_SIZE)-1
-    min_y=-int(SIZE_Y/2/SQUARE_SIZE)+1
-    max_y=int(SIZE_Y/2/SQUARE_SIZE)-1
-
+    min_x=-int(SIZE_X/2/SQUARE_SIZE)+2
+    max_x=int(SIZE_X/2/SQUARE_SIZE)-2
+    min_y=-int(SIZE_Y/2/SQUARE_SIZE)+2
+    max_y=int(SIZE_Y/2/SQUARE_SIZE)-2
+    
     food_x=random.randint(min_x,max_x)*SQUARE_SIZE
     food_y=random.randint(min_y,max_y)*SQUARE_SIZE
-    food.goto(food_x,food_y)
-    food_pos.append((food_x,food_y))
-    ran_food_stamp=food.stamp()
-    food_stamps.append(ran_food_stamp)
-
-    if not food.pos in wall_pos:
+    temp_pos= (food_x,food_y)
+    if temp_pos in wall_pos:
         make_food()
+    else:
+        food.goto(food_x,food_y)
+        food_pos.append((food_x,food_y))
+        ran_food_stamp=food.stamp()
+        food_stamps.append(ran_food_stamp)
+
+
 
 def move_fatman():
     global score
