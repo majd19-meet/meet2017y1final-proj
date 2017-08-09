@@ -1,18 +1,28 @@
 import turtle
 import random
 
-print('choose an instructor')
-print('adam,dou_dou,keyvon,jan')
-choice=input()
-choice.lower()
-if choice=='adam':
-    choice.shape('adam.gif')
-elif choice=='dou_dou':
-    choice.shape('dou_dou.gif')
-elif choice=='kayvon':
-    choice.shape('kayvon.gif')
-elif choice=='jan':
-    choice.shape('jan.gif')
+print('choose your player')
+print('adam,dou_dou,kayvon,jan,alex')
+chosen=input()
+chosen.lower()
+register_shape=[]
+
+if chosen=='adam':
+    turtle.register_shape('adam.gif')
+
+elif chosen=='dou_dou':
+    turtle.register_shape('dou_dou.gif')
+
+elif chosen=='kayvon':
+    turtle.register_shape('kayvon.gif')
+
+elif chosen=='jan':
+    turtle.register_shape('jan.gif')
+
+elif chosen=='alex':
+    turtle.register_shape('alex.gif')
+    
+    
     
 
 
@@ -80,20 +90,51 @@ RIGHT_ARROW="Right"
 TIME_STEP=100
 SPACEBAR='space'
 global score
+score=0
 UP=0
 DOWN=1
 LEFT=2
 RIGHT=3
 
+def move_fatman():
+    if direction==RIGHT:
+        new_pos=(x_pos+SQUARE_SIZE,y.pos)
+        if new_pos in wall_pos:
+            turtle.ontimer(move_fatman,timestep)
+        else:
+            snake.goto(new_pos)
 
-direction=UP
-direction=0
-score=0
+    if direction==LEFT:
+        new_pos=(x_pos-SQUARE_SIZE,y.pos)
+        if new_pos in wall_pos:
+            turtle.ontimer(move_fatman,timestep)
+        else:
+            snake.goto(new_pos)
+
+    if direction==UP:
+        new_pos=(x_pos,y.pos+SQUARE_SIZE)
+        if new_pos in wall_pos:
+            turtle.ontimer(move_fatman,timestep)
+        else:
+            snake.goto(new_pos)
+
+    if direction==DOWN:
+        new_pos=(x_pos,y.pos-SQUARE_SIZE)
+        if new_pos in wall_pos:
+            turtle.ontimer(move_fatman,timestep)
+        else:
+            snake.goto(new_pos)
+
+
+
+
 UP_EDGE=SIZE_Y/2
 DOWN_EDGE=-SIZE_Y/2
 RIGHT_EDGE=SIZE_X/2
 LEFT_EDGE=-SIZE_X/2
 
+
+direction=0
 def up():
     global direction
     if direction != DOWN:
