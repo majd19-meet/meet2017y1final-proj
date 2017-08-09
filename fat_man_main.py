@@ -38,9 +38,9 @@ elif chose=='alex':
     
 turtle.tracer(1,0)
 
-SIZE_X=1250
-SIZE_Y=700
-turtle.setup(SIZE_X,SIZE_Y)
+SIZE_X=1200
+SIZE_Y=680
+turtle.setup(SIZE_X+20,SIZE_Y+20)
 
 turtle.penup()
 
@@ -78,35 +78,6 @@ DOWN=1
 LEFT=2
 RIGHT=3
 
-##def move_fatman():
-##    if direction==RIGHT:
-##        new_pos=(x_pos+SQUARE_SIZE,y.pos)
-##        if new_pos in wall_pos:
-##            turtle.ontimer(move_fatman,timestep)
-##        else:
-##            fatman.goto(new_pos)
-##
-##    if direction==LEFT:
-##        new_pos=(x_pos-SQUARE_SIZE,y.pos)
-##        if new_pos in wall_pos:
-##            turtle.ontimer(move_fatman,timestep)
-##        else:
-##            fatman.goto(new_pos)
-##
-##    if direction==UP:
-##        new_pos=(x_pos,y.pos+SQUARE_SIZE)
-##        if new_pos in wall_pos:
-##            turtle.ontimer(move_fatman,timestep)
-##        else:
-##            fatman.goto(new_pos)
-##
-##    if direction==DOWN:
-##        new_pos=(x_pos,y.pos-SQUARE_SIZE)
-##        if new_pos in wall_pos:
-##            turtle.ontimer(move_fatman,timestep)
-##        else:
-##            fatman.goto(new_pos)
-##
 
 
 wall_pos=[]
@@ -117,15 +88,12 @@ box.penup()
 
 
 #wall maker
-def wall_maker (left_corner,hight,width):
+def wall_maker(left_corner,hight,width):
     box.goto(left_corner[0],left_corner[1]-SQUARE_SIZE)
-
     for i in range(hight):
         box.goto(box.pos()[0],box.pos()[1]+SQUARE_SIZE)
         box.stamp()
-        wall_pos.append(box.pos)
-
-
+        wall_pos.append(box.pos())
     for i in range(width-1):
         box.goto(box.pos()[0]+SQUARE_SIZE,box.pos()[1])
         box.stamp()
@@ -141,8 +109,8 @@ def wall_maker (left_corner,hight,width):
     
 
         
-left_corner=(-608,-337)
-wall_maker(left_corner,35,62)
+left_corner=(-600,-340)
+wall_maker(left_corner,35,61)
 #maze
 
 left_corner=(-460,-260)
@@ -152,47 +120,47 @@ hight=13
 for i in range (5):
     x=left_corner[0]
     y=left_corner[1]
-    left_corner=(x+20,y+20)
+    left_corner=(x+SQUARE_SIZE,y+SQUARE_SIZE)
     width += -2
     hight += -2
     wall_maker(left_corner,hight,width)
-    
-    
-
-left_corner=(-460,45)
+##    
+##    
+##
+left_corner=(-460,40)
 width=12
 hight=13
 for i in range (5):
     x=left_corner[0]
     y=left_corner[1]
-    left_corner=(x+20,y+20)
+    left_corner=(x+SQUARE_SIZE,y+SQUARE_SIZE)
     width += -2
     hight += -2
     wall_maker(left_corner,hight,width)
-
+##
 left_corner=(260,-260)
 width=12
 hight=13
 for i in range (5):
     x=left_corner[0]
     y=left_corner[1]
-    left_corner=(x+20,y+20)
+    left_corner=(x+SQUARE_SIZE,y+SQUARE_SIZE)
     width += -2
     hight += -2
     wall_maker(left_corner,hight,width)
-
-
-left_corner=(260,45)
+##
+##
+left_corner=(260,40)
 width=12
 hight=13
 for i in range (5):
     x=left_corner[0]
     y=left_corner[1]
-    left_corner=(x+20,y+20)
+    left_corner=(x+SQUARE_SIZE,y+SQUARE_SIZE)
     width += -2
     hight += -2
     wall_maker(left_corner,hight,width)
-
+##
 
 
 UP_EDGE=SIZE_Y/2
@@ -202,25 +170,45 @@ LEFT_EDGE=-SIZE_X/2
 
 
 direction=0
+
 def up():
     global direction
-    direction=UP
+    x_pos=fatman.pos()[0]
+    y_pos=fatman.pos()[1]
+    new_pos=(x_pos,y_pos+SQUARE_SIZE)
+    if new_pos not in wall_pos:
+        direction=UP
+
     #print("You pressed the up key!")
 
 def down():
     global direction
-    direction=DOWN
+    x_pos=fatman.pos()[0]
+    y_pos=fatman.pos()[1]
+    new_pos=(x_pos,y_pos-SQUARE_SIZE)
+    if new_pos not in wall_pos:
+        direction=DOWN
     #print("You pressed the down key!")
 
 def left():
     global direction
-    direction=LEFT
+    x_pos=fatman.pos()[0]
+    y_pos=fatman.pos()[1]
+    new_pos=(x_pos-SQUARE_SIZE,y_pos)
+    if new_pos not in wall_pos:
+        direction=LEFT
     #print("You pressed the left key!")
 
 def right():
     global direction
-    direction=RIGHT
+    x_pos=fatman.pos()[0]
+    y_pos=fatman.pos()[1]
+    new_pos=(x_pos+SQUARE_SIZE,y_pos)
+    if new_pos not in wall_pos:
+        direction=RIGHT
     #print("You pressed the right key!")
+
+
 
 turtle.onkeypress(up,UP_ARROW)
 turtle.onkeypress(down,DOWN_ARROW)
@@ -245,18 +233,17 @@ def make_food():
     max_x=int(SIZE_X/2/SQUARE_SIZE)-2
     min_y=-int(SIZE_Y/2/SQUARE_SIZE)+2
     max_y=int(SIZE_Y/2/SQUARE_SIZE)-2
+    temp_pos = wall_pos[10]
+    while temp_pos in wall_pos:
+        food_x=random.randint(min_x,max_x)*SQUARE_SIZE
+        food_y=random.randint(min_y,max_y)*SQUARE_SIZE
+        temp_pos= (food_x,food_y)
     
-    food_x=random.randint(min_x,max_x)*SQUARE_SIZE
-    food_y=random.randint(min_y,max_y)*SQUARE_SIZE
-    temp_pos= (food_x,food_y)
-    if temp_pos in wall_pos:
-        make_food()
     else:
         food.goto(food_x,food_y)
         food_pos.append((food_x,food_y))
         ran_food_stamp=food.stamp()
         food_stamps.append(ran_food_stamp)
-
 
 
 def move_fatman():
@@ -266,19 +253,28 @@ def move_fatman():
     x_pos=my_pos[0]
     y_pos=my_pos[1]
 
+
     if direction==RIGHT:
-        fatman.goto(x_pos+SQUARE_SIZE, y_pos)
-        #print("you moved right")
-    elif direction==LEFT:
-        fatman.goto(x_pos-SQUARE_SIZE, y_pos)
-        #print("you moved left")
-        
+        new_pos=(x_pos+SQUARE_SIZE,y_pos)
+        if new_pos not in wall_pos:
+            fatman.goto(new_pos)
+
+    if direction==LEFT:
+        new_pos=(x_pos-SQUARE_SIZE,y_pos)
+        if new_pos not in wall_pos:
+            fatman.goto(new_pos)
+
     if direction==UP:
-        fatman.goto(x_pos,y_pos+SQUARE_SIZE)
-        #print("you moved UP")
+        new_pos=(x_pos,y_pos+SQUARE_SIZE)
+        if new_pos not in wall_pos:
+            fatman.goto(new_pos)
+
     if direction==DOWN:
-        fatman.goto(x_pos,y_pos-SQUARE_SIZE)
-       # print("you moved down")
+        new_pos=(x_pos,y_pos-SQUARE_SIZE)
+        if new_pos not in wall_pos:
+            fatman.goto(new_pos)
+
+
 
     my_pos=fatman.pos()
     pos_list.append(my_pos)
