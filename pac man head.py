@@ -4,6 +4,7 @@ print('choose your player')
 print('adam,dou_dou,kayvon,jan,alex')
 chosen=input()
 chosen.lowercase()
+fat_man==chosen
 
 if chosen=='adam':
     register_shape('adam.gif')

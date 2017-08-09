@@ -1,24 +1,24 @@
 import turtle
 import random
 
-print('choose an instructor')
-print('adam,dou_dou,keyvon,jan')
-choice=input()
-choice.lower()
-if choice=='adam':
-    choice.shape('adam.gif')
-elif choice=='dou_dou':
-    choice.shape('dou_dou.gif')
-elif choice=='kayvon':
-    choice.shape('kayvon.gif')
-elif choice=='jan':
-    choice.shape('jan.gif')
+##print('choose your player')
+##print('adam, doudou, kayvon,jan,alex')
+##chosen=input()
+##chosen.lowercase()
+##fatman==chosen
+##
+##if chosen=='adam':
+##    register_shape('adam.gif')
+##elif chosen=='doudou':
+##    register_shape('dou_dou.gif')
+##elif chosen=='kayvon':
+##    register_shape('kayvon.gif')
+##elif chosen=='jan':
+##    register_shape('jan.gif')
+##elif chosen=='alex':
+##    register_shape('alex.gif')
+
     
-
-
-
-
-
 turtle.tracer(1,0)
 
 SIZE_X=1250
@@ -36,43 +36,39 @@ stamp_list=[]
 food_pos=[]
 food_stamp=[]
 #wadi's part
-fat_man=turtle.clone()
-#fat_man.shape(chosen)
+fatman=turtle.clone()
+#fatman.shape(chosen)
 
 turtle.hideturtle()
 
 for i in range(START_LENGTH):
-    x_pos=fat_man.pos()[0]
-    y_pos=fat_man.pos()[1]
+    x_pos=fatman.pos()[0]
+    y_pos=fatman.pos()[1]
 
     x_pos+=SQUARE_SIZE
 
     my_pos=(x_pos,y_pos)
-    fat_man.goto(x_pos,y_pos)
+    fatman.goto(x_pos,y_pos)
 
     pos_list.append(my_pos)
 
-    stamp1=fat_man.stamp()
+    stamp1=fatman.stamp()
     stamp_list.append(stamp1)
 
 START_LENGTH=1
 for i in range (START_LENGTH):
-    x_pos=fat_man.pos()[0]
-    y_pos=fat_man.pos()[1]
+    x_pos=fatman.pos()[0]
+    y_pos=fatman.pos()[1]
     x_pos= x_pos+SQUARE_SIZE
     new_pos=(x_pos,y_pos)
-    fat_man.goto (x_pos,y_pos)
+    fatman.goto (x_pos,y_pos)
     pos_list.append(new_pos)
 
-    stamp1 = fat_man.stamp
+    stamp1 = fatman.stamp
     stamp_list.append(stamp1)
 
 
 
-
-
-
- 
 UP_ARROW="Up"
 LEFT_ARROW="Left"
 DOWN_ARROW="Down"
@@ -144,29 +140,61 @@ def make_food():
     food_stamps.append(ran_food_stamp)
 
 
-def move_fat_man():
+def move_fatman():
     global score
 
-    my_pos=fat_man.pos()
+    my_pos=fatman.pos()
     x_pos=my_pos[0]
     y_pos=my_pos[1]
     global direction
 
     if direction==RIGHT:
-        fat_man.goto(x_pos+SQUARE_SIZE, y_pos)
+        fatman.goto(x_pos+SQUARE_SIZE, y_pos)
         #print("you moved right")
     elif direction==LEFT:
-        fat_man.goto(x_pos-SQUARE_SIZE, y_pos)
+        fatman.goto(x_pos-SQUARE_SIZE, y_pos)
         #print("you moved left")
         
     if direction==UP:
-        fat_man.goto(x_pos,y_pos+SQUARE_SIZE)
+        fatman.goto(x_pos,y_pos+SQUARE_SIZE)
         #print("you moved UP")
     if direction==DOWN:
-        fat_man.goto(x_pos,y_pos-SQUARE_SIZE)
+        fatman.goto(x_pos,y_pos-SQUARE_SIZE)
        # print("you moved down")
 
-    my_pos=fat_man.pos()
+    my_pos=fatman.pos()
     pos_list.append(my_pos)
-    new_stamp=fat_man.stamp()
+    new_stamp=fatman.stamp()
     stamp_list.append(new_stamp)
+
+
+
+
+    global food_stamp, food_pos
+    if fatman.pos() in food_pos:
+        food_ind=food_pos.index(snake.pos())
+        food.clearstamp(food_stamps[food_ind])
+        food_pos.pop(food_ind)
+        food_stamps.pop(food_ind)
+        print('you have eaten the food')
+        make_food()
+
+    else:
+        old_stamp=stamp_list.pop(0)
+        snake.clearstamp(old_stamp)
+        pos_list.pop(0)
+
+
+
+        turtle.ontimer(move_fatman, TIME_STEP)
+
+move_fatman()
+
+food_pos=[(100,100)]
+food_stamps=[]
+
+for i in food_pos:
+    food.goto(i)
+    food_stamp=food.stamp()
+    food_stamps.append(food_stamps)
+        
