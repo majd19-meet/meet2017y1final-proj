@@ -1,22 +1,41 @@
 import turtle
 import random
 
-##print('choose your player')
-##print('adam, doudou, kayvon,jan,alex')
-##chosen=input()
-##chosen.lowercase()
-##fatman==chosen
-##
-##if chosen=='adam':
-##    register_shape('adam.gif')
-##elif chosen=='doudou':
-##    register_shape('dou_dou.gif')
-##elif chosen=='kayvon':
-##    register_shape('kayvon.gif')
-##elif chosen=='jan':
-##    register_shape('jan.gif')
-##elif chosen=='alex':
-##    register_shape('alex.gif')
+##HEAD
+print('choose your player')
+print('adam, doudou, kayvon,jan,alex')
+chose=input()
+chose.lower()
+
+
+fatman=turtle.clone()
+chosen=turtle.clone()
+
+turtle.register_shape('adam.gif')
+turtle.register_shape('dou_dou.gif')
+turtle.register_shape('kayvon.gif')
+turtle.register_shape('jan.gif')
+turtle.register_shape('alex.gif')
+
+
+
+if chose=='adam':
+    chosen.shape('adam.gif')
+elif chose=='doudou':
+    chosen.shape('dou_dou.gif')
+elif chose=='kayvon':
+    chosen.shape('kayvon.gif')
+elif chose=='jan':
+    chosen.shape('jan.gif')
+elif chose=='alex':
+    chosen.shape('alex.gif')
+    
+    
+
+
+
+
+###af566edc26b76e655e984c42088f41b0e475851e
 
     
 turtle.tracer(1,0)
@@ -76,20 +95,51 @@ RIGHT_ARROW="Right"
 TIME_STEP=100
 SPACEBAR='space'
 global score
+score=0
 UP=0
 DOWN=1
 LEFT=2
 RIGHT=3
 
+def move_fatman():
+    if direction==RIGHT:
+        new_pos=(x_pos+SQUARE_SIZE,y.pos)
+        if new_pos in wall_pos:
+            turtle.ontimer(move_fatman,timestep)
+        else:
+            snake.goto(new_pos)
 
-direction=UP
-direction=0
-score=0
+    if direction==LEFT:
+        new_pos=(x_pos-SQUARE_SIZE,y.pos)
+        if new_pos in wall_pos:
+            turtle.ontimer(move_fatman,timestep)
+        else:
+            snake.goto(new_pos)
+
+    if direction==UP:
+        new_pos=(x_pos,y.pos+SQUARE_SIZE)
+        if new_pos in wall_pos:
+            turtle.ontimer(move_fatman,timestep)
+        else:
+            snake.goto(new_pos)
+
+    if direction==DOWN:
+        new_pos=(x_pos,y.pos-SQUARE_SIZE)
+        if new_pos in wall_pos:
+            turtle.ontimer(move_fatman,timestep)
+        else:
+            snake.goto(new_pos)
+
+
+
+
 UP_EDGE=SIZE_Y/2
 DOWN_EDGE=-SIZE_Y/2
 RIGHT_EDGE=SIZE_X/2
 LEFT_EDGE=-SIZE_X/2
 
+
+direction=0
 def up():
     global direction
     if direction != DOWN:
@@ -172,7 +222,7 @@ def move_fatman():
 
     global food_stamp, food_pos
     if fatman.pos() in food_pos:
-        food_ind=food_pos.index(snake.pos())
+        food_ind=food_pos.index(fatman.pos())
         food.clearstamp(food_stamps[food_ind])
         food_pos.pop(food_ind)
         food_stamps.pop(food_ind)
