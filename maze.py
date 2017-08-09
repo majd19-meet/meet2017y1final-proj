@@ -46,10 +46,25 @@ def wall_maker (left_corner,hight,width):
         
 left_corner=(-608,-337)
 wall_maker(left_corner,35,62)
-left_corner=(-460,-220)
-wall_maker(left_corner,25,12)
+#maze
+
+left_corner=(-460,-260)
+
 width=12
-hight=25
+hight=13
+for i in range (5):
+    x=left_corner[0]
+    y=left_corner[1]
+    left_corner=(x+20,y+20)
+    width += -2
+    hight += -2
+    wall_maker(left_corner,hight,width)
+    
+    
+
+left_corner=(-460,45)
+width=12
+hight=13
 for i in range (5):
     x=left_corner[0]
     y=left_corner[1]
@@ -58,9 +73,9 @@ for i in range (5):
     hight += -2
     wall_maker(left_corner,hight,width)
 
-left_corner=(260,-220)
+left_corner=(260,-260)
 width=12
-hight=25
+hight=13
 for i in range (5):
     x=left_corner[0]
     y=left_corner[1]
@@ -68,4 +83,33 @@ for i in range (5):
     width += -2
     hight += -2
     wall_maker(left_corner,hight,width)
+
+
+left_corner=(260,45)
+width=12
+hight=13
+for i in range (5):
+    x=left_corner[0]
+    y=left_corner[1]
+    left_corner=(x+20,y+20)
+    width += -2
+    hight += -2
+    wall_maker(left_corner,hight,width)
+
+
+
+
+
+
+
+#left_corner=(260,-110)
+#width=12
+#hight=9
+#for i in range (5):
+    #3x=left_corner[0]
+    #y=left_corner[1#
+    #left_corner=(x+20,y+20)
+    #width += -2
+    #hight += -2
+    #wall_maker(left_corner,hight,width)
 
