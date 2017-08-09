@@ -3,8 +3,13 @@ import turtle
 print('choose your player')
 print('adam,dou_dou,kayvon,jan,alex')
 chosen=input()
+<<<<<<< HEAD
 chosen.lowercase()
 fat_man==chosen
+=======
+chosen.lower()
+register_shape=[]
+>>>>>>> adb1bd069c8b3d646a83e822d4d4d4e739d50968
 
 if chosen=='adam':
     register_shape('adam.gif')

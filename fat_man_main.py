@@ -35,7 +35,7 @@ pos_list=[]
 stamp_list=[]
 food_pos=[]
 food_stamp=[]
-#wadi's part
+
 fatman=turtle.clone()
 #fatman.shape(chosen)
 
