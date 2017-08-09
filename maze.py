@@ -9,46 +9,38 @@ y_pos=0
 
 turtle.shape("square")
 SQUARE_SIZE=20
-for i in range (4):
-    turtle.goto(x_pos,y_pos)
-    x_pos-=20
-    turtle.stamp()
-for i in range (10):
-    turtle.goto(x_pos,y_pos)
-    y_pos+=20
-    turtle.stamp()
-for i in range (4):
-    turtle.goto(x_pos,y_pos)
-    x_pos+=20
-    turtle.stamp()
-for i in range (10):
-    turtle.goto(x_pos,y_pos)
-    y_pos-=20
-    turtle.stamp()
 
 
-x_pos = 380
-y_pos = -230
+wall_pos=[]
+box=turtle.clone()
+box.shape('square')
+box.hideturtle()
+box.penup()
 
 
-for i in range (23):
-    turtle.goto(x_pos,y_pos)
-    y_pos+=20
-    turtle.stamp()
+#wall maker
+def wall_maker (left_corner,hight,width):
+    box.goto(left_corner[0],left_corner[1]-SQUARE_SIZE)
+
+    for i in range(hight):
+        box.goto(box.pos()[0],box.pos()[1]+SQUARE_SIZE)
+        box.stamp()
+        wall_pos.append(box.pos)
 
 
-for i in range (38):
-    turtle.goto(x_pos,y_pos)
-    x_pos-=20
-    turtle.stamp()
-
-for i in range (23):
-    turtle.goto(x_pos,y_pos)
-    y_pos-=20
-    turtle.stamp()
-
-for i in range (38):
-    turtle.goto(x_pos,y_pos)
-    x_pos+=20
-    turtle.stamp()
-
+    for i in range(width-1):
+        box.goto(box.pos()[0]+SQUARE_SIZE,box.pos()[1])
+        box.stamp()
+        wall_pos.append(box.pos())
+    for i in range (hight-1):
+        box.goto(box.pos()[0],box.pos()[1]-SQUARE_SIZE)
+        box.stamp()
+        wall_pos.append(box.pos())
+    for i in range(width-2):
+        box.goto(box.pos()[0]-SQUARE_SIZE,box.pos()[1])
+        box.stamp()
+        wall_pos.append(box.pos())
+left_corner=(-385,-240)
+wall_maker(left_corner,25,35)
+left_corner=(-50,-50)
+wall_maker(left_corner,15,5)
