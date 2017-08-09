@@ -1,15 +1,6 @@
 import turtle
-SIZE_X=1250
-SIZE_Y=700
-turtle.tracer(1,0)
-turtle.setup(SIZE_X,SIZE_Y)
-turtle.penup()
-stamp_list=[]
 x_pos=0
 y_pos=0
-
-turtle.shape("square")
-SQUARE_SIZE=20
 
 
 wall_pos=[]
@@ -17,7 +8,7 @@ box=turtle.clone()
 box.shape('square')
 box.hideturtle()
 box.penup()
-
+SQUARE_SIZE=20
 
 #wall maker
 def wall_maker (left_corner,hight,width):
