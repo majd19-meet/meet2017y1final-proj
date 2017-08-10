@@ -230,7 +230,8 @@ def make_food():
         food_pos.append((food_x,food_y))
         ran_food_stamp=food.stamp()
         food_stamps.append(ran_food_stamp)
-
+    TIME_STEP2=3000
+    turtle.ontimer(make_food,TIME_STEP2)
 
 def move_fatman():
     global score
@@ -282,15 +283,14 @@ def move_fatman():
         scoreboard.clear()
         scoreboard.write('score='+str(score),font=("Arial", 14, "bold"))
         print('you have eaten the food')
-        make_food()
+        #make_food()
 
-    turtle.ontimer(move_fatman, TIME_STEP)
+    turtle.ontimer(move_fatman, TIME_STEP)   
+
 
 move_fatman()
 
-        
-
-
+make_food()
 
 
 
