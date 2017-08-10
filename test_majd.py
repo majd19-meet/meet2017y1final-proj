@@ -1,5 +1,6 @@
 import turtle
 import random
+turtle.bgcolor("Linen")
 
 ##HEAD
 print('choose your player')
@@ -7,7 +8,7 @@ print('adam, doudou, amir, kayvon, jan, alex')
 chose=input()
 chose.lower()
 
-fatman=turtle.clone()
+fatman = turtle.clone()
 fatman.penup()
 turtle.register_shape('adam.gif')
 turtle.register_shape('dou_dou.gif')
@@ -92,6 +93,7 @@ RIGHT=3
 
 wall_pos=[]
 box=turtle.clone()
+##box.color("red")
 box.shape('square')
 box.hideturtle()
 box.penup()
@@ -103,6 +105,7 @@ scoreboard.write('score = 0',font=("Arial", 14, "bold"))
 #wall maker
 def wall_maker(left_corner,hight,width):
     box.goto(left_corner[0],left_corner[1]-SQUARE_SIZE)
+    box.color("Cornsilk4")
     for i in range(hight):
         box.goto(box.pos()[0], box.pos()[1]+SQUARE_SIZE)
         box.stamp()
@@ -132,22 +135,27 @@ def draw_box(left_corner, height, width):
             box.stamp()
             wall_pos.append(box.pos())
         box.goto(start_x, start_y - ((h+1) * SQUARE_SIZE))
+
+        
         
 left_corner=(-600,-340)
 wall_maker(left_corner,35,61)
+
 ###maze
 ##
 
 width=12
 hight=12
+box.color("PeachPuff3")
 draw_box((-460,260), hight, width)
 draw_box((-460, -40), hight, width)
 draw_box((220, 260), hight, width)
 draw_box((220, -40), hight, width)
 
+
 width=6
 hight=6
-
+box.color("AntiqueWhite4")
 draw_box((60, 20), hight, width)
 draw_box((-160, -80), hight, width)
 draw_box((-160, 180), hight, width)
