@@ -7,7 +7,7 @@ print('adam, doudou, amir, kayvon, jan, alex')
 chose=input()
 chose.lower()
 
-turtle.bgcolor("White")
+turtle.bgcolor("Lavender")
 fatman = turtle.clone()
 fatman.penup()
 turtle.register_shape('adam.gif')
@@ -105,7 +105,7 @@ scoreboard.write('score = 0',font=("Arial", 14, "bold"))
 #wall maker
 def wall_maker(left_corner,hight,width):
     box.goto(left_corner[0],left_corner[1]-SQUARE_SIZE)
-    box.color("Cornsilk4")
+    box.color("SteelBlue")
     for i in range(hight):
         box.goto(box.pos()[0], box.pos()[1]+SQUARE_SIZE)
         box.stamp()
@@ -143,7 +143,7 @@ wall_maker(left_corner,35,61)
 
 width=12
 hight=12
-box.color("Pink")
+box.color("LightBlue")
 draw_box((-460,260), hight, width)
 draw_box((-460, -40), hight, width)
 draw_box((220, 260), hight, width)
@@ -236,20 +236,17 @@ def make_food():
         food_time.append(0)
         shape_list.append(choice)
 
-<<<<<<< HEAD
     TIME_STEP2=7000
-    turtle.ontimer(make_food,TIME_STEP2)
-=======
-def rottime():
-    for i in range(len(food_time)):
-        food_time[i] += 1
+   # turtle.ontimer(make_food,TIME_STEP2)
+
+##def rottime():
+##    for i in range(len(food_time)):
+##        food_time[i] += 1
      #   if food_time[i] > rot_time:
       #      shape_list[i] = "poop.gif"
        #     food.shape("poop.gif")
             
-    turtle.ontimer(rottime, 1000)
->>>>>>> e2a9063727df8282c25a55dc6054f2530d45e036
-
+    #turtle.ontimer(rottime, 1000)
 ##def rottime():
 ##    for i in range(len(food_time)):
 ##        food_time[i] += 1
@@ -337,10 +334,15 @@ def move_fatman():
 
     if did_food_rot:
         make_food()
-
+        score=score-1
+        scoreboard.clear()
+        scoreboard.write('score='+str(score),font=("Arial", 14, "bold"))
+        print('food started to rot!')
+    
     if fatman.pos() in rotfoodpos:
         quit()
-            
+    elif score==-2:
+        quit()
 
     turtle.ontimer(move_fatman, TIME_STEP)
     
