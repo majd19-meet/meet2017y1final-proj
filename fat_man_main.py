@@ -21,6 +21,7 @@ turtle.register_shape('watermelon.gif')
 turtle.register_shape('banana.gif')
 turtle.register_shape('apple.gif')
 turtle.register_shape('cherries.gif')
+turtle.register_shape('poop.gif')
 food_types = ['grapes.gif','orange.gif','watermelon.gif','banana.gif','apple.gif','cherries.gif']
 
 if chose=='adam':
@@ -52,11 +53,13 @@ turtle.penup()
 
 SQUARE_SIZE=20
 START_LENGTH=1
-
+food_time=[]
+shape_list=[]
 score_list=[]
 pos_list=[]
 stamp_list=[]
 score = 0
+rot_time = 7
 
 turtle.hideturtle()
 
@@ -230,8 +233,20 @@ def make_food():
         food_pos.append((food_x,food_y))
         ran_food_stamp=food.stamp()
         food_stamps.append(ran_food_stamp)
+        food_time.append(0)
+        shape_list.append(choice)
+        
     TIME_STEP2=3000
     turtle.ontimer(make_food,TIME_STEP2)
+
+def rottime():
+    for i in range(len(food_time)):
+        food_time[i] += 1
+        if food_time[i] > rot_time:
+            shape_list[i] = "poop.gif"
+            food.shape("poop.gif")
+            
+    turtle.ontimer(rottime, 1000)
 
 def move_fatman():
     global score
@@ -275,22 +290,28 @@ def move_fatman():
 
     if fatman.pos() in food_pos:
         food_ind=food_pos.index(fatman.pos())
-        food.clearstamp(food_stamps[food_ind])
-        food_pos.pop(food_ind)
-        food_stamps.pop(food_ind)
-        score = score+1
-        score_list.append(score)
-        scoreboard.clear()
-        scoreboard.write('score='+str(score),font=("Arial", 14, "bold"))
-        print('you have eaten the food')
-        #make_food()
+        if food_time[food_ind] > rot_time:
+            quit()
+        else:
+            food.clearstamp(food_stamps[food_ind])
+            food_pos.pop(food_ind)
+            food_stamps.pop(food_ind)
+            food_time.pop(food_ind)
+            score = score+1
+            score_list.append(score)
+            scoreboard.clear()
+            scoreboard.write('score='+str(score),font=("Arial", 14, "bold"))
+            print('you have eaten the food')
+            #make_food()
+        
+        
 
-    turtle.ontimer(move_fatman, TIME_STEP)   
-
-
+    turtle.ontimer(move_fatman, TIME_STEP)
+    
 move_fatman()
 
 make_food()
+rottime()
 
 
 
