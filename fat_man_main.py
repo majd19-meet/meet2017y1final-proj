@@ -242,9 +242,9 @@ def make_food():
 def rottime():
     for i in range(len(food_time)):
         food_time[i] += 1
-        if food_time[i] > rot_time:
-            shape_list[i] = "poop.gif"
-            food.shape("poop.gif")
+     #   if food_time[i] > rot_time:
+      #      shape_list[i] = "poop.gif"
+       #     food.shape("poop.gif")
             
     turtle.ontimer(rottime, 1000)
 
