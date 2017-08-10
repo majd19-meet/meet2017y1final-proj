@@ -3,14 +3,16 @@ import random
 
 ##HEAD
 print('choose your player')
-print('adam, doudou, kayvon,jan,alex')
+print('adam, doudou, amir, kayvon, jan, alex')
 chose=input()
 chose.lower()
 
-fatman=turtle.clone()
+turtle.bgcolor("White")
+fatman = turtle.clone()
 fatman.penup()
 turtle.register_shape('adam.gif')
 turtle.register_shape('dou_dou.gif')
+turtle.register_shape('amir.gif')
 turtle.register_shape('kayvon.gif')
 turtle.register_shape('jan.gif')
 turtle.register_shape('alex.gif')
@@ -28,13 +30,14 @@ if chose=='adam':
     fatman.shape('adam.gif')
 elif chose=='doudou':
     fatman.shape('dou_dou.gif')
+elif chose=='amir':
+    fatman.shape('amir.gif')
 elif chose=='kayvon':
     fatman.shape('kayvon.gif')
 elif chose=='jan':
     fatman.shape('jan.gif')
 elif chose=='alex':
     fatman.shape('alex.gif')
-    
     
 
 
@@ -59,7 +62,7 @@ score_list=[]
 pos_list=[]
 stamp_list=[]
 score = 0
-rot_time = 7
+rot_time = 11
 
 turtle.hideturtle()
 
@@ -81,14 +84,14 @@ DOWN_ARROW="Down"
 RIGHT_ARROW="Right"
 TIME_STEP=100
 SPACEBAR='space'
-global score
+##global score
 UP=0
 DOWN=1
 LEFT=2
 RIGHT=3
 
 
-
+time_count = []
 wall_pos=[]
 box=turtle.clone()
 box.shape('square')
@@ -102,6 +105,7 @@ scoreboard.write('score = 0',font=("Arial", 14, "bold"))
 #wall maker
 def wall_maker(left_corner,hight,width):
     box.goto(left_corner[0],left_corner[1]-SQUARE_SIZE)
+    box.color("Cornsilk4")
     for i in range(hight):
         box.goto(box.pos()[0], box.pos()[1]+SQUARE_SIZE)
         box.stamp()
@@ -139,6 +143,7 @@ wall_maker(left_corner,35,61)
 
 width=12
 hight=12
+box.color("Pink")
 draw_box((-460,260), hight, width)
 draw_box((-460, -40), hight, width)
 draw_box((220, 260), hight, width)
@@ -146,7 +151,7 @@ draw_box((220, -40), hight, width)
 
 width=6
 hight=6
-
+box.color("AntiqueWhite4")
 draw_box((60, 20), hight, width)
 draw_box((-160, -80), hight, width)
 draw_box((-160, 180), hight, width)
@@ -205,14 +210,9 @@ turtle.listen()
 
 food=turtle.clone()
 food.shape("orange.gif")
-
-food_pos=[(100,100)]
+food.hideturtle()
+food_pos=[]
 food_stamps=[]
-
-for i in food_pos:
-    food.goto(i)
-    food_stamp=food.stamp()
-    food_stamps.append(food_stamp)
 
 
 def make_food():
@@ -235,19 +235,23 @@ def make_food():
         food_stamps.append(ran_food_stamp)
         food_time.append(0)
         shape_list.append(choice)
-        
-    TIME_STEP2=3000
+
+    TIME_STEP2=7000
     turtle.ontimer(make_food,TIME_STEP2)
 
-def rottime():
-    for i in range(len(food_time)):
-        food_time[i] += 1
-        if food_time[i] > rot_time:
-            shape_list[i] = "poop.gif"
-            food.shape("poop.gif")
-            
-    turtle.ontimer(rottime, 1000)
-
+##def rottime():
+##    for i in range(len(food_time)):
+##        food_time[i] += 1
+##        if food_time[i] > rot_time:
+##            food.shape("poop.gif")
+##            
+##    turtle.ontimer(rottime, 1000)
+rot_time = 50
+rotfood= turtle.clone()
+rotfood.shape('poop.gif')
+rotfood.ht()
+rotfood.pu()
+rotfoodpos = []
 def move_fatman():
     global score
 
@@ -290,28 +294,44 @@ def move_fatman():
 
     if fatman.pos() in food_pos:
         food_ind=food_pos.index(fatman.pos())
-        if food_time[food_ind] > rot_time:
-            quit()
-        else:
-            food.clearstamp(food_stamps[food_ind])
-            food_pos.pop(food_ind)
-            food_stamps.pop(food_ind)
-            food_time.pop(food_ind)
-            score = score+1
-            score_list.append(score)
-            scoreboard.clear()
-            scoreboard.write('score='+str(score),font=("Arial", 14, "bold"))
-            print('you have eaten the food')
-            #make_food()
-        
-        
+        food.clearstamp(food_stamps[food_ind])
+        food_pos.pop(food_ind)
+        food_stamps.pop(food_ind)
+        food_time.pop(food_ind)
+        score = score+1
+        score_list.append(score)
+        scoreboard.clear()
+        scoreboard.write('score='+str(score),font=("Arial", 14, "bold"))
+        print('you have eaten the food')
+        make_food()
+    rotten_food = []
+    did_food_rot = False
+    for i in range(len(food_time)):
+        time = food_time[i]
+        food_time[i] = time + 1
+        if food_time[i] >= rot_time:
+            print(i)
+            pos = food.pos()
+            food_pos.pop(i)
+            old_stamp = food_stamps.pop(i)
+            food.clearstamp(old_stamp)
+            rotten_food.append(i)
+            rotfood.goto(pos)
+            rotfood.stamp()
+            rotfoodpos.append(pos)
+            did_food_rot = True
+
+    for rottime in rotten_food:
+        food_time.pop(rottime)
+
+    if did_food_rot:
+        make_food()
+
+    if fatman.pos() in rotfoodpos:
+        quit()
+            
 
     turtle.ontimer(move_fatman, TIME_STEP)
     
 move_fatman()
-
 make_food()
-rottime()
-
-
-
